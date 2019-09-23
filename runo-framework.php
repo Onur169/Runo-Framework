@@ -36,7 +36,8 @@ add_action('admin_menu', function () use ($plugin, $pluginTemplate) {
                 "PLUGIN_NAME" => $plugin->getPluginName(),
                 "PLUGIN_NAME_SEPARATED" => $plugin->getPluginNameSeparated(),
                 "GITHUB_REPO_URL" => 'https://github.com/Onur169/Runo-Framework',
-                "GITHUB_LOGO_URL" => 'https://github.githubassets.com/images/modules/logos_page/GitHub-Logo.png'
+                "GITHUB_LOGO_URL" => 'https://github.githubassets.com/images/modules/logos_page/GitHub-Logo.png',
+                "CURRENT_VERSION" => @file_get_contents('https://raw.githubusercontent.com/Onur169/Runo-Framework/master/version.txt')
             ]);
 
         } catch (\Throwable $th) {
