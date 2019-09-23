@@ -1,0 +1,61 @@
+#runo-framework {
+
+    padding: 2rem;
+
+    h1 {
+
+        font-size: 3rem;
+        line-height: 4rem;
+
+        animation-name: fadeIn;
+        animation-duration: 1s;
+        animation-timing-function: ease-out;
+
+    }
+
+    p {
+        font-size: 1.5rem;
+    }
+
+    @keyframes slideIn {
+        0%   {
+            transform: translateX(-120%) scale(.5);
+        }
+        50%  {
+            transform: translateX(0%) scale(.75); 
+        }
+        100%  {
+            transform: scale(1);
+        }
+    }
+
+    @keyframes fadeIn {
+        from {
+            opacity: 0;
+        }
+        to {
+            opacity: 1;
+        }
+    }
+
+    img#logo {
+
+        margin-top: 1rem;
+        $size: 300px;
+        width: $size;
+        outline: none;
+
+        animation-name: slideIn;
+        animation-duration: 1s;
+        animation-timing-function: ease-out;
+
+        opacity: 1;
+        transition: .3s opacity ease-in-out;
+        will-change: opacity;
+        &:hover {
+            opacity: .8;
+        }
+
+    }
+
+}

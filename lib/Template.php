@@ -2,6 +2,8 @@
 
 namespace RunoFramework\Lib;
 
+use Exception;
+
 class Template
 {
 
