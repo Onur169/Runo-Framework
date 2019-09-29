@@ -14,7 +14,7 @@ class File
         $this->filePath = $filePath;
     }
 
-    public function createFile($content)
+    public function create($content)
     {
 
         $fp = fopen($this->filePath, "w");
