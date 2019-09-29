@@ -1,6 +1,6 @@
 <?php
 
-namespace RunoFramework\Lib;
+namespace RunoFramework\Lib\View;
 
 use Exception;
 
@@ -25,7 +25,6 @@ class Template
         $this->templatePath = $templatePath;
     }
 
-    
     public function getTemplatePath()
     {
         return $this->templatePath;

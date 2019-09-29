@@ -7,16 +7,29 @@
 /*
 Plugin Name: Runo Framework
 Plugin URI: https://www.facebook.com/profile.php?id=100021747824725
-Description: Ein Framework womit die Widget/Theme Programmierung leichter fällt 
+Description: Ein Framework womit die Widget/Theme Programmierung leichter fällt
 Version: 1.0.0
 Author URI: https://www.facebook.com/profile.php?id=100021747824725
  */
 
-require_once __DIR__ . "/lib/Template.php";
-require_once __DIR__ . "/lib/Runo.php";
+function autoloadFrameworkClasses($className)
+{
+
+    $file = str_replace("RunoFramework", "", $className . '.php');
+    $fileInfo = pathinfo($file);
+    $fileInfo["dirname"] = strtolower($fileInfo["dirname"]);
+    $newFilePath = __DIR__ . $fileInfo["dirname"] . "/" . $fileInfo["basename"];
+
+    if (file_exists($newFilePath)) {
+        require_once $newFilePath;
+    }
+    
+}
+
+spl_autoload_register('autoloadFrameworkClasses');
 
 use RunoFramework\Lib\Runo;
-use RunoFramework\Lib\Template;
+use RunoFramework\Lib\View\Template;
 
 $pluginName = basename(__FILE__, ".php");
 $page = $_GET["page"] ?? null;
@@ -37,7 +50,7 @@ add_action('admin_menu', function () use ($plugin, $pluginTemplate) {
                 "PLUGIN_NAME_SEPARATED" => $plugin->getPluginNameSeparated(),
                 "GITHUB_REPO_URL" => 'https://github.com/Onur169/Runo-Framework',
                 "GITHUB_LOGO_URL" => 'https://github.githubassets.com/images/modules/logos_page/GitHub-Logo.png',
-                "CURRENT_VERSION" => @file_get_contents('https://raw.githubusercontent.com/Onur169/Runo-Framework/master/version.txt')
+                "CURRENT_VERSION" => @file_get_contents('https://raw.githubusercontent.com/Onur169/Runo-Framework/master/version.txt'),
             ]);
 
         } catch (\Throwable $th) {
