@@ -2,7 +2,7 @@
 
 namespace RunoFramework\Lib\File;
 
-use Exception;
+use RunoFramework\Lib\FileException;
 
 class File
 {
@@ -19,12 +19,12 @@ class File
 
         $fp = fopen($this->filePath, "w");
         if (!$fp) {
-            throw new Exception('File open failed.');
+            throw new FileException('File open failed.');
         }
 
         $fwrite = @fwrite($fp, $content);
         if ($fwrite === false) {
-            throw new Exception('File not writable.');
+            throw new FileException('File not writable.');
         }
 
         fclose($fp);

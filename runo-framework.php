@@ -26,14 +26,17 @@ spl_autoload_register(function($className) {
 });
 
 use RunoFramework\Lib\Runo;
+use RunoFramework\Lib\Plugin\Plugin;
+use RunoFramework\Lib\Plugin\WordpressPlugin;
 use RunoFramework\Lib\ArrayHelper\ArrayHelper;
 use RunoFramework\Lib\ArrayHelper\WordpressArrayHelper;
 use RunoFramework\Lib\File\File;
 use RunoFramework\Lib\View\Template;
+use RunoFramework\Lib\Exceptions\FileException;
 
 $pluginName = basename(__FILE__, ".php");
 $page = $_GET["page"] ?? null;
-$plugin = new Runo($pluginName, $pluginName, __FILE__);
+$plugin = (new Runo($pluginName, $pluginName, __FILE__))->init();
 $pluginTemplate = new Template(__DIR__ . "/template");
 
 $plugin->registerData('[]');
