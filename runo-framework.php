@@ -12,8 +12,7 @@ Version: 1.0.0
 Author URI: https://www.facebook.com/profile.php?id=100021747824725
  */
 
-function autoloadFrameworkClasses($className)
-{
+spl_autoload_register(function($className) {
 
     $file = str_replace("RunoFramework", "", $className . '.php');
     $fileInfo = pathinfo($file);
@@ -23,12 +22,13 @@ function autoloadFrameworkClasses($className)
     if (file_exists($newFilePath)) {
         require_once $newFilePath;
     }
-    
-}
 
-spl_autoload_register('autoloadFrameworkClasses');
+});
 
 use RunoFramework\Lib\Runo;
+use RunoFramework\Lib\ArrayHelper\ArrayHelper;
+use RunoFramework\Lib\ArrayHelper\WordpressArrayHelper;
+use RunoFramework\Lib\File\File;
 use RunoFramework\Lib\View\Template;
 
 $pluginName = basename(__FILE__, ".php");
