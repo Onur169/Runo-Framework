@@ -2,6 +2,8 @@
 
 namespace RunoFramework\Lib\Exceptions;
 
+use \Exception;
+
 class FileException extends Exception
 {
 

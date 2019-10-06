@@ -10,6 +10,11 @@ class WordpressPlugin extends Plugin
         parent::__construct($pluginName, $optionKey, $pluginRootPath);
     }
 
+    public function getActiveTemplateDirectoryName() {
+		$pathInfo = pathinfo(get_page_template());
+		return basename($pathInfo["dirname"]);
+    }
+
     public function registerData($data)
     {
         return add_option(parent::getOptionKey(), $data);
@@ -80,7 +85,7 @@ class WordpressPlugin extends Plugin
     public function registerAppCSS($path)
     {
 
-        wp_register_style(parent::getPluginNameUnderscore(), plugins_url($path, $this->pluginRootPath));
+        wp_register_style(parent::getPluginNameUnderscore(), self::getPluginsUrl($path));
         wp_enqueue_style(parent::getPluginNameUnderscore());
 
     }
@@ -88,14 +93,14 @@ class WordpressPlugin extends Plugin
     public function registerAppJS($path)
     {
 
-        wp_register_script(parent::getPluginNameUnderscore(), plugins_url($path, $this->pluginRootPath));
+        wp_register_script(parent::getPluginNameUnderscore(), self::getPluginsUrl($path));
         wp_enqueue_script(parent::getPluginNameUnderscore());
 
     }
 
     public function getPluginsUrl($path)
-    {
-        return plugins_url($path, $this->pluginRootPath);
+    {   
+        return get_site_url(null, $path, is_ssl() ? 'https' : 'http');
     }
 
     public function isCurrentPageBackend()
@@ -106,6 +111,12 @@ class WordpressPlugin extends Plugin
     public function isCurrentPageFrontend()
     {
         return !is_admin();
+    }
+
+    public function isCurrentPageSowBackend() {
+
+        return strpos($_SERVER['REQUEST_URI'], 'wp-json/sowb/v1/widgets/previews') !== false;
+
     }
 
 }

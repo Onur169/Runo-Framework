@@ -12,18 +12,15 @@ Version: 1.0.0
 Author URI: https://www.facebook.com/profile.php?id=100021747824725
  */
 
-spl_autoload_register(function($className) {
-
-    $file = str_replace("RunoFramework", "", $className . '.php');
-    $fileInfo = pathinfo($file);
-    $fileInfo["dirname"] = strtolower($fileInfo["dirname"]);
-    $newFilePath = __DIR__ . $fileInfo["dirname"] . "/" . $fileInfo["basename"];
-
-    if (file_exists($newFilePath)) {
-        require_once $newFilePath;
-    }
-
-});
+require_once(__DIR__ . "/lib/array/ArrayHelper.php");
+require_once(__DIR__ . "/lib/array/WordpressArrayHelper.php");
+require_once(__DIR__ . "/lib/exceptions/FileException.php");
+require_once(__DIR__ . "/lib/file/File.php");
+require_once(__DIR__ . "/lib/plugin/Plugin.php");
+require_once(__DIR__ . "/lib/plugin/WordpressPlugin.php");
+require_once(__DIR__ . "/lib/view/Template.php");
+require_once(__DIR__ . "/lib/view/TemplateHelper.php");
+require_once(__DIR__ . "/lib/Runo.php");
 
 use RunoFramework\Lib\Runo;
 use RunoFramework\Lib\Plugin\Plugin;
@@ -32,6 +29,7 @@ use RunoFramework\Lib\ArrayHelper\ArrayHelper;
 use RunoFramework\Lib\ArrayHelper\WordpressArrayHelper;
 use RunoFramework\Lib\File\File;
 use RunoFramework\Lib\View\Template;
+use RunoFramework\Lib\View\TemplateHelper;
 use RunoFramework\Lib\Exceptions\FileException;
 
 $pluginName = basename(__FILE__, ".php");
