@@ -36,6 +36,7 @@ $pluginName = basename(__FILE__, ".php");
 $page = $_GET["page"] ?? null;
 $plugin = (new Runo($pluginName, $pluginName, __FILE__))->init();
 $pluginTemplate = new Template(__DIR__ . "/template");
+$pluginDirName = basename(__DIR__);
 
 $plugin->registerData('[]');
 
@@ -63,14 +64,14 @@ add_action('admin_menu', function () use ($plugin, $pluginTemplate) {
 });
 
 // Lade CSS/JS für das Backend
-add_action('admin_init', function () use ($plugin, $wpdb) {
+add_action('admin_init', function () use ($plugin, $wpdb, $pluginDirName) {
 
     $pageParam = $_GET["page"] ?? "";
 
     if ($pageParam == $plugin->getPluginName()) {
 
-        $plugin->registerAppJS('js/dist/app.js');
-        $plugin->registerAppCSS('css/dist/layout.css');
+        $plugin->registerAppJS('wp-content/plugins/'.$pluginDirName.'/js/dist/app.js');
+        $plugin->registerAppCSS('wp-content/plugins/'.$pluginDirName.'/css/dist/layout.css');
 
     }
 
